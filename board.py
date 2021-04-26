@@ -14,41 +14,24 @@ def size(board):
     return int(len(board) ** (1 / 2))
 
 
-def split(board):
-    s = size(board)
-    return [board[i * s : (i + 1) * s] for i in range(s)]
-
-
-def transpose(board):
-    s = size(board)
-    t = [board[i : len(board) : s][::-1] for i in range(s)]
-    return t
-
-
-def rotate(board):  # 45 deg
-    s = size(board)
-    t = []
-    for i in range(s):
-        t += [board[i : s * (i + 1) - 1 : s - 1][::-1]]
-    for i in range(1, s):
-        t += [board[s * (i + 1) + (i - 2) :: s - 1][::-1]]
-    return t
-
-
 def whos_winning(board, player_symbols):
-    def match_check(b, match):
-        for row in b:
-            if match in row:
-                return True
-
-    for symbol in player_symbols:
-        match = symbol * 3
-        if match_check(split(board), match):
-            return symbol
-        if match_check(transpose(board), match):
-            return symbol
-        if match_check(rotate(board), match):
-            return symbol
-        if match_check(rotate("".join(transpose(board))), match):
-            return symbol
+    b = board
+    for s in player_symbols:
+        match = s * 3
+        if b[0:3] == match:
+            return s
+        if b[3:6] == match:
+            return s
+        if b[6:9] == match:
+            return s
+        if b[0] + b[4] + b[7] == match:
+            return s
+        if b[1] + b[5] + b[8] == match:
+            return s
+        if b[2] + b[6] + b[9] == match:
+            return s
+        if b[0] + b[5] + b[9] == match:
+            return s
+        if b[3] + b[5] + b[7] == match:
+            return s
     return None
