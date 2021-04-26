@@ -6,7 +6,7 @@ def print_board(board):
         if t == " ":
             print(i + 1, end=" ")
         else:
-            print(t + 1, end="")
+            print(t, end=" ")
         if i in [2, 5, 8]:
             print()
 
@@ -36,6 +36,3 @@ def whos_winning(board, player_symbols):
         if b[2] + b[4] + b[6] == match:
             return s
     return None
-
-
-print_board(initial_board)
